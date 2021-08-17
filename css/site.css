@@ -55,6 +55,16 @@ main>.container {
 .checklist>li>span>i {
     color: orange;
 }
+.Fizz{
+    color: lightgreen;
+}
+.Buzz{
+    color: lightskyblue;
+}
+.FizzBuzz {
+    color: red;
+    font-weight: bold;
+}
 
 code[class*="language-"],
         pre[class*="language-"] {            

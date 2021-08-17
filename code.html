@@ -2,7 +2,7 @@
 <html lang="en" class="h-100">
 
 <head>
-    <title>Mini Site Template</title>
+    <title>Fizz Buzz</title>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -22,7 +22,7 @@
 <!-- ==== Nav Section === -->
     <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
         <div class="container-fluid"> 
-            <a class="navbar-brand" href="#"><img src="/img/katlite-noname.svg" width="30" height="30"alt="Katherine Pitts icon">APP NAME</a>
+            <a class="navbar-brand" href="#"><img src="/img/katlite-noname.svg" width="30" height="30"alt="Katherine Pitts icon">Fizz Buzz</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse"
                 aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -39,7 +39,7 @@
                         <a class="nav-link active" aria-current="page" href="code.html">The Code</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" target="_blank" href="https://github.com/kvp06933/Benji">Git Repo</a>
+                        <a class="nav-link" target="_blank" href="https://github.com/kvp06933/FizzBuzz">Git Repo</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" target="_blank" href="https://katherinepittsportfolio.netlify.app">About</a>
@@ -52,22 +52,110 @@
     <!-- ==== Main Section === -->
     <main class="flex-shrink-0">
         <div class="container py-4 px-5 mt-5">
-            <h2 class="border-1 border-bottom border-dark">The Code for APP NAME</h2>
+            <h2 class="border-1 border-bottom border-dark">The Code for Fizz Buzz</h2>
             <div class="row row-cols-1 row-cols-lg-2">
                 <div class="col-lg-8">
                     <pre class="line-numbers">
                         <code class="language-jsx language-javascript">
-                            //Call Hello World
-                            function HelloWorld(){
-                                alert("Hello world");
-                            }
+                            // get values from the user. We need to get the fizz value and the buzz value.
+function getValues() {
+    // get user values from the page
+
+    let fizzValue = document.getElementById("fizzValue").value;
+    let buzzValue = document.getElementById("buzzValue").value;
+
+    // parse for numbers
+    fizzValue = parseInt(fizzValue);
+    buzzValue = parseInt(buzzValue);
+    // Check entered values are integers
+    if (Number.isInteger(fizzValue) && Number.isInteger(buzzValue) && fizzValue != buzzValue) {
+        // We call fizzbuzz
+        let fbArray = fizzBuzz(fizzValue, buzzValue);
+        //call displayData and write the values to the screen
+        displayData(fbArray);
+    } else if (fizzValue == buzzValue) {
+        alert("Please enter separate values");
+    } else {
+        alert("Please enter integers, not decimals or fractions");
+    }
+}
+
+
+function fizzBuzz(fValue, bValue) {
+    let returnArray = [];
+
+    // loop from 1 to 100
+
+    //inside loop we need to check the current value in three steps
+    for (i = 1; i <= 100; i++) {
+        // check to see if divisible by both three and five, if yes push 'FizzBuzz' into array and not the number
+        if (i % fValue == 0 && i % bValue == 0) {
+            returnArray.push("FizzBuzz");
+            // check to see if divisible by fizz value (3), if yes push 'Fizz' into array and not the number         
+        } else if (i % fValue == 0) {
+            returnArray.push("Fizz");
+            // check to see if divisible by fizz value (5), if yes push 'Buzz' into array and not the number
+        } else if (i % bValue == 0) {
+            returnArray.push("Buzz");
+            // if none then push the number into the array
+        } else {
+            returnArray.push(i);
+        }
+    }
+    return returnArray;
+}
+
+
+function displayData(fbArray) {
+
+    //get the table body element from the page
+    let tableBody = document.getElementById("results");
+
+    //get the template row
+    let templateRow = document.getElementById("fbTemplate");
+
+    //clear the table first
+    tableBody.innerHTML = "";
+    // loop over the array and create a tablerow for each item.
+
+    // add all the rows to the table.
+
+    for (let index = 0; index < fbArray.length; index += 5) {
+        let tableRow = document.importNode(templateRow.content, true);
+
+        //grab just the tds and put into array
+        let rowCols = tableRow.querySelectorAll("td");
+        rowCols[0].classList.add(fbArray[index]);
+        rowCols[0].textContent = fbArray[index];
+        rowCols[1].classList.add(fbArray[index + 1]);
+        rowCols[1].textContent = fbArray[index + 1];
+        rowCols[2].classList.add(fbArray[index + 2]);
+        rowCols[2].textContent = fbArray[index + 2];
+        rowCols[3].classList.add(fbArray[index + 3]);
+        rowCols[3].textContent = fbArray[index + 3];
+        rowCols[4].classList.add(fbArray[index + 4]);
+        rowCols[4].textContent = fbArray[index + 4];
+
+        tableBody.appendChild(tableRow);
+    }
+}
                         </code>
                     </pre>
                 </div>
                 <div class="col-lg-4">
-                    <p>The Code is structured in one function.</p>
-                    <h5>Hello World</h5>
-                    <p>Hello World is a function that displays an alert with a message of "Hello World"</p>
+                    <p>The Code is structured in three functions.</p>
+                    <h5>Get Values</h5>
+                    <p>getValues stores the fizz and buzz values entered by the user. It checks to see if both numbers are different, and shows an alert if they're the same to "Please enter separate values". </p>
+                    <p>It converts each string value into an integer, if the input can be converted. If the input cannot be converted to an integer, an alert is called to enter integers only.</p>
+                    <p>After the inputs are converted to integers, the fizzBuzz and displayData functions are both called.</p>
+                    <h5>Fizz Buzz</h5>
+                    <p>fizzBuzz initializes an empty array to store integers. The user inputs are used as fizz and buzz parameters for a for loop.</p>
+                    <p>The loop increments each index value by one. Each index value is evaluated to see if the modulus of the index divided by first, both parameters, then each parameter if the first condition is false, evaluates to zero.</p><p> If both fizz and buzz parameters are met, "FizzBuzz" is pushed to the array, instead of the index value. If not, then both the fizz and buzz parameters are checked and if one is matched, either "Fizz" or "Buzz" will be pushed. If none of these conditions are true, then the index value is pushed to the numbers array. The numbers array is returned.</p>
+                    
+                    <h5>Display Data</h5>
+                    <p>displayData  gets the table body element and the template row element from the app.html page. It utilizes a template that was created in the app.html file. It lists a table row with five columns of data. The template is then initializes an empty string stored in the variable templateRows.</p> <p>The page is cleared, if any data is already present, then an array is looped over and a table row is created for each item.</p>
+                    <p>Each column has data and classes added from the fbArray.
+                    </p>
                 </div>
             </div>
         </div>
